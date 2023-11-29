@@ -1,0 +1,22 @@
+lex
+%{
+#include <stdio.h>
+int whitespace_count = 0;
+int newline_count = 0;
+%}
+
+%%
+
+[ \t]    { whitespace_count++; }
+\n       { newline_count++; }
+
+%%
+
+int main() {
+    yylex();
+    printf("Whitespace count: %d\n", whitespace_count);
+    printf("Newline count: %d\n", newline_count);
+    return 0;
+}
+
+
