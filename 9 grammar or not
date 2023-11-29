@@ -1,0 +1,60 @@
+# Recursive descent parser to check if an input string satisfies a grammar
+
+# Function to check if a given character is a non-terminal symbol
+def is_non_terminal(c):
+    return c.isupper()
+
+# Function to check if a given character is a terminal symbol
+def is_terminal(c):
+    # Assuming all lowercase characters are terminals
+    return c.islower()
+
+# Recursive function for parsing a grammar rule
+def parse_rule(grammar, rule, index, input_str):
+    if index == len(rule):  # End of rule, parsing successful
+        return True
+    elif input_str == '' or index >= len(rule):  # End of input string, parsing failed
+        return False
+
+    next_symbol = rule[index]
+
+    if is_terminal(next_symbol):
+        if input_str[0] == next_symbol:
+            return parse_rule(grammar, rule, index+1, input_str[1:])
+        else:
+            return False
+    elif is_non_terminal(next_symbol):
+        for prod in grammar[next_symbol]:
+            if parse_rule(grammar, prod, 0, input_str):
+                return True
+        return False
+    else:
+        return False
+
+# Function to check if an input string satisfies a given grammar
+def is_string_accepted(grammar, start_symbol, input_str):
+    return any(parse_rule(grammar, prod, 0, input_str) for prod in grammar[start_symbol])
+
+
+# Example usage
+if __name__ == "__main__":
+    # Define the grammar
+    grammar = {
+        'S': ['NP VP'],
+        'NP': ['Det N', 'Det Adj N'],
+        'VP': ['V NP'],
+        'Det': ['a', 'an', 'the'],
+        'N': ['cat', 'dog', 'book'],
+        'Adj': ['big', 'small'],
+        'V': ['chased', 'ate', 'read']
+    }
+
+    # Prompt the user to enter the input string
+    input_str = input("Enter the input string: ")
+
+    # Check if the input string is accepted by the grammar
+    if is_string_accepted(grammar, 'S', input_str):
+        print("Input string satisfies the grammar!")
+    else:
+        print("Input string does not satisfy the grammar!")
+
