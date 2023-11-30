@@ -1,0 +1,18 @@
+%{
+#include <stdio.h>
+%}
+
+DIGIT [0-9]
+PLUS +
+DASH -
+SPACE [ \t\r\n]
+
+%%
+{PLUS}?{DIGIT}{DIGIT}{DIGIT}?{SPACE}?{DIGIT}{DIGIT}{DIGIT}{DASH}?{DIGIT}{DIGIT}{DIGIT}{DIGIT}    { printf("Valid mobile number: %s\n", yytext); }
+.|\n    { printf("Invalid mobile number: %s\n", yytext); }
+%%
+
+int main() {
+    yylex();
+    return 0;
+}
