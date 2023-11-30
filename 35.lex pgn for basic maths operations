@@ -1,0 +1,20 @@
+%{
+#include <stdio.h>
+%}
+
+%%
+"+"     { printf("Operation: Addition\n"); }
+"-"     { printf("Operation: Subtraction\n"); }
+"*"     { printf("Operation: Multiplication\n"); }
+"/"     { printf("Operation: Division\n"); }
+"%"     { printf("Operation: Modulo\n"); }
+[0-9]+  { printf("Operand: %s\n", yytext); }
+.|\n    ; // Ignore other characters
+
+%%
+
+int main() {
+    printf("Enter a mathematical expression (+, -, *, /, %%) to analyze: \n");
+    yylex();
+    return 0;
+}
