@@ -1,0 +1,23 @@
+%{
+#include <stdio.h>
+%}
+
+%%
+[0-9]+      { printf("Number: %s\n", yytext); }
+[a-zA-Z]+   { printf("Word: %s\n", yytext); }
+[ \t\n]     ; // Ignore spaces, tabs, and newlines
+.           ; // Ignore other characters
+%%
+
+int main() {
+    yyin = fopen("flash_card.txt", "r"); // Replace "flash_card.txt" with your file name
+    if (!yyin) {
+        printf("Error opening file!\n");
+        return 1;
+    }
+
+    yylex();
+
+    fclose(yyin);
+    return 0;
+}
