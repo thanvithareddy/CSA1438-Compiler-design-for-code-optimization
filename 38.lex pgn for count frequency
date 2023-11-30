@@ -1,0 +1,31 @@
+%{
+#include <stdio.h>
+#include <string.h>
+
+int word_count = 0;
+char target_word[50]; // Change the size accordingly
+
+%}
+
+%%
+[a-zA-Z]+   {
+                if(strcmp(yytext, target_word) == 0)
+                    word_count++;
+            }
+.|\n        ; // Ignore other characters
+
+%%
+
+int main() {
+    printf("Enter a sentence: \n");
+    fgets(target_word, sizeof(target_word), stdin);
+    target_word[strcspn(target_word, "\n")] = 0; // Remove newline character if present
+
+    printf("Enter the word to find its frequency: \n");
+    scanf("%s", target_word);
+
+    yylex();
+
+    printf("Frequency of '%s' in the sentence: %d\n", target_word, word_count);
+    return 0;
+}
