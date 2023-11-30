@@ -1,0 +1,15 @@
+%{
+#include <stdio.h>
+%}
+
+%%
+[aeiouAEIOU][a-zA-Z]*   { printf("Valid string starting with a vowel: %s\n", yytext); }
+.|\n                    ; // Ignore other characters
+
+%%
+
+int main() {
+    printf("Enter a string: \n");
+    yylex();
+    return 0;
+}
