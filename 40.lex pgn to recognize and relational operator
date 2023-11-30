@@ -1,0 +1,16 @@
+%{
+#include <stdio.h>
+%}
+
+%%
+[<>=!]=    { printf("Relational Operator: %s\n", yytext); }
+[a-zA-Z]+ { printf("Word: %s\n", yytext); }
+.         ; // Ignore other characters
+
+%%
+
+int main() {
+    printf("Enter a statement: \n");
+    yylex();
+    return 0;
+}
