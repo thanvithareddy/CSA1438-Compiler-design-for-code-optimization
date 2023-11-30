@@ -1,0 +1,16 @@
+#include <stdio.h>
+int main() {
+    int a, b, c, d, result1, result2;
+    a = 5;
+    b = 10;
+    c = 3;
+    d = 8;
+    result1 = a * b + c;
+    result2 = a * b + d;
+    int common_subexpression = a * b;
+    result1 = common_subexpression + c;
+    result2 = common_subexpression + d;
+    printf("Result 1: %d\n", result1);
+    printf("Result 2: %d\n", result2);
+    return 0;
+}
