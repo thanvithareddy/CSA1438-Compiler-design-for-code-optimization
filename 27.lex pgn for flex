@@ -1,0 +1,36 @@
+%{
+#include <stdio.h>
+%}
+
+%%
+
+"int"                   { printf("Keyword: int\n"); }
+"char"                  { printf("Keyword: char\n"); }
+"float"                 { printf("Keyword: float\n"); }
+"double"                { printf("Keyword: double\n"); }
+"if"                    { printf("Keyword: if\n"); }
+"else"                  { printf("Keyword: else\n"); }
+"while"                 { printf("Keyword: while\n"); }
+"for"                   { printf("Keyword: for\n"); }
+"return"                { printf("Keyword: return\n"); }
+
+"("                     { printf("Open Parenthesis\n"); }
+")"                     { printf("Close Parenthesis\n"); }
+"{"                     { printf("Open Curly Brace\n"); }
+"}"                     { printf("Close Curly Brace\n"); }
+";"                     { printf("Semicolon\n"); }
+","                     { printf("Comma\n"); }
+
+[0-9]+                  { printf("Number: %s\n", yytext); }
+[a-zA-Z_][a-zA-Z0-9_]*  { printf("Identifier: %s\n", yytext); }
+
+[ \t\n]                 ; /* Skip whitespace and newlines */
+
+.                       { printf("Unknown token: %s\n", yytext); }
+
+%%
+
+int main() {
+    yylex();
+    return 0;
+}
