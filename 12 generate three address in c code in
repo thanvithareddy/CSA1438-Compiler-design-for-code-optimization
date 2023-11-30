@@ -1,0 +1,24 @@
+#include <stdio.h>
+#include <stdlib.h>
+int tempCount = 1;
+char* generateTemp() {
+    char* temp = (char*)malloc(4);
+    snprintf(temp, 4, "t%d", tempCount++);
+    return temp;
+}
+void generateAssignment(char* result, char* operand1, char* operator, char* operand2) {
+    printf("%s = %s %s %s\n", result, operand1, operator, operand2)
+}
+char* generateExpression(char* operand1, char* operator, char* operand2) {
+    char* result = generateTemp();
+    generateAssignment(result, operand1, operator, operand2);
+    return result;
+}
+
+int main() {
+    char expression[100];
+    printf("Enter an arithmetic expression: ");
+    scanf("%s", expression)
+
+    return 0;
+}
